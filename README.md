@@ -20,23 +20,37 @@ The setup script will install:
 
 1. Clone this repository:
 
-```bash
-git clone https://github.com/tokamak-network/trh-sdk-installation.git
-cd trh-sdk-installation
-```
+   ```bash
+   git clone https://github.com/tokamak-network/trh-sdk-installation.git
+   cd trh-sdk-installation
+   ```
 
 2. Run the setup script:
 
-```bash
-chmod +x setup.sh
-./setup.sh
-```
+   ```bash
+   chmod +x setup.sh
+   ./setup.sh
+   ```
 
-3. Verify the installation:
+3. Source the shell config:
 
-```bash
-trh-sdk --help
-```
+   MacOS:
+
+   ```bash
+   source ~/.zshrc
+   ```
+
+   Linux:
+
+   ```bash
+   source ~/.bashrc
+   ```
+
+4. Verify the installation:
+
+   ```bash
+   trh-sdk --help
+   ```
 
 ## Troubleshooting
 

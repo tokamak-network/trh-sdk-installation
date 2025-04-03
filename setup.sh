@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Detect OS
 if [[ "$OSTYPE" == "darwin"* ]]; then
     OS="MacOS"
@@ -11,20 +11,26 @@ fi
 
 echo "Detected OS: $OS"
 
-# Download Go
-echo "Installing Go..."
-if [[ "$OS" == "Linux" ]]; then
-    wget https://go.dev/dl/go1.22.6.linux-amd64.tar.gz
-    # Remove existing Go installation and extract new one
-    sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.22.6.linux-amd64.tar.gz
-    # Clean up downloaded archive
-    rm go1.22.6.linux-amd64.tar.gz
-elif [[ "$OS" == "MacOS" ]]; then
-    wget https://go.dev/dl/go1.22.6.darwin-amd64.pkg
-    # Install Go package
-    sudo installer -pkg go1.22.6.darwin-amd64.pkg -target /
-    # Clean up downloaded package
-    rm go1.22.6.darwin-amd64.pkg
+# Save the current Go version
+current_go_version=$(go version 2>/dev/null)
+
+# Check if the current version is not v1.22.6
+if ! echo "$current_go_version" | grep 'go1.22.6' &>/dev/null ; then
+    # Download Go
+    echo "Installing Go..."
+    if [[ "$OS" == "Linux" ]]; then
+        wget https://go.dev/dl/go1.22.6.linux-amd64.tar.gz
+        # Remove existing Go installation and extract new one
+        sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.22.6.linux-amd64.tar.gz
+        # Clean up downloaded archive
+        rm go1.22.6.linux-amd64.tar.gz
+    elif [[ "$OS" == "MacOS" ]]; then
+        wget https://go.dev/dl/go1.22.6.darwin-amd64.pkg
+        # Install Go package
+        sudo installer -pkg go1.22.6.darwin-amd64.pkg -target /
+        # Clean up downloaded package
+        rm go1.22.6.darwin-amd64.pkg
+    fi
 fi
 
 # Set shell config file based on OS
