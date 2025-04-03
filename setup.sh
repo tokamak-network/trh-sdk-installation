@@ -48,20 +48,13 @@ if ! grep -q "export PATH=\$PATH:\$HOME/.foundry/bin" "$SHELL_CONFIG"; then
 fi
 
 # Source shell config to apply changes immediately
-if [[ "$OS" == "Linux" ]]; then
-    source ~/.bashrc
-else
-    source ~/.zshrc
-fi
+source "$SHELL_CONFIG"
 
 echo "✅ Go has been installed successfully!"
-# Print Go version
-go version
 
 # Install TRH SDK CLI
 echo "Installing TRH SDK CLI..."
 go install github.com/tokamak-network/trh-sdk@c6197454572c931ab5105444de5b8047c63e6cf8
 
 echo "✅ TRH SDK has been installed successfully!"
-# Print TRH SDK version
-trh-sdk version
+
