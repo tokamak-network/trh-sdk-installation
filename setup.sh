@@ -47,14 +47,21 @@ if ! grep -q "export PATH=\$PATH:\$HOME/.foundry/bin" "$SHELL_CONFIG"; then
     echo "export PATH=\$PATH:\$HOME/.foundry/bin" >> "$SHELL_CONFIG"
 fi
 
-# Source shell config to apply changes immediately
-source "$SHELL_CONFIG"
+# Source shell config and set PATH temporarily for this session
+source "$SHELL_CONFIG" || true
+export PATH=$PATH:/usr/local/go/bin
+export PATH=$HOME/go/bin:$PATH
 
 echo "✅ Go has been installed successfully!"
+# Verify Go installation
+echo "Verifying Go installation..."
+/usr/local/go/bin/go version
+
 
 # Install TRH SDK CLI
 echo "Installing TRH SDK CLI..."
-go install github.com/tokamak-network/trh-sdk@c6197454572c931ab5105444de5b8047c63e6cf8
+# Use full path to go binary since PATH may not be updated yet
+/usr/local/go/bin/go install github.com/tokamak-network/trh-sdk@c6197454572c931ab5105444de5b8047c63e6cf8
 
 echo "✅ TRH SDK has been installed successfully!"
 
