@@ -47,8 +47,12 @@ if ! grep -q "export PATH=\$PATH:\$HOME/.foundry/bin" "$SHELL_CONFIG"; then
     echo "export PATH=\$PATH:\$HOME/.foundry/bin" >> "$SHELL_CONFIG"
 fi
 
-# Source bashrc to apply changes immediately
-source ~/.bashrc
+# Source shell config to apply changes immediately
+if [[ "$OS" == "Linux" ]]; then
+    source ~/.bashrc
+else
+    source ~/.zshrc
+fi
 
 echo "✅ Go has been installed successfully!"
 # Print Go version
