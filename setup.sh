@@ -13,10 +13,15 @@ echo "Detected OS: $OS"
 
 # Download Go
 echo "Installing Go..."
-wget https://go.dev/dl/go1.22.6.linux-amd64.tar.gz
-
-# Remove existing Go installation and extract new one
-sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.22.6.linux-amd64.tar.gz
+if [[ "$OS" == "Linux" ]]; then
+    wget https://go.dev/dl/go1.22.6.linux-amd64.tar.gz
+    # Remove existing Go installation and extract new one
+    sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.22.6.linux-amd64.tar.gz
+elif [[ "$OS" == "MacOS" ]]; then
+    wget https://go.dev/dl/go1.22.6.darwin-amd64.pkg
+    # Install Go package
+    sudo installer -pkg go1.22.6.darwin-amd64.pkg -target /
+fi
 
 # Set shell config file based on OS
 if [[ "$OS" == "Linux" ]]; then
