@@ -17,10 +17,14 @@ if [[ "$OS" == "Linux" ]]; then
     wget https://go.dev/dl/go1.22.6.linux-amd64.tar.gz
     # Remove existing Go installation and extract new one
     sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.22.6.linux-amd64.tar.gz
+    # Clean up downloaded archive
+    rm go1.22.6.linux-amd64.tar.gz
 elif [[ "$OS" == "MacOS" ]]; then
     wget https://go.dev/dl/go1.22.6.darwin-amd64.pkg
     # Install Go package
     sudo installer -pkg go1.22.6.darwin-amd64.pkg -target /
+    # Clean up downloaded package
+    rm go1.22.6.darwin-amd64.pkg
 fi
 
 # Set shell config file based on OS
@@ -42,9 +46,6 @@ fi
 if ! grep -q "export PATH=\$PATH:\$HOME/.foundry/bin" "$SHELL_CONFIG"; then
     echo "export PATH=\$PATH:\$HOME/.foundry/bin" >> "$SHELL_CONFIG"
 fi
-
-# Clean up downloaded archive
-rm go1.22.6.linux-amd64.tar.gz
 
 # Source bashrc to apply changes immediately
 source ~/.bashrc
